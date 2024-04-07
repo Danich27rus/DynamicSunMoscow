@@ -1,0 +1,11 @@
+﻿@{
+    ViewData["Title"] = "Загрузка архивов по Москве";
+}
+<h1>@ViewData["Title"]</h1>
+
+<p>Страница для загрузки архивов по Москве</p>
+<h3>Выберите файл для загрузки</h3>
+<form asp-action="AddFile" asp-controller="Home" method="post" enctype="multipart/form-data">
+    <input type="file" name="uploadedFile" /><br>
+    <input type="submit" value="Загрузить" />
+</form>
