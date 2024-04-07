@@ -12,7 +12,7 @@ public static class DBRegistration
         services.AddDbContext<ApplicationDbContext>(options =>
            options.UseSqlServer(
                configuration.GetConnectionString("DefaultConnection"),
-               b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
+               b => b.MigrationsAssembly("DynamicSunMoscow")));
         //services.AddTransient(typeof(IGenericRepositoryAsync<>), typeof(GenericRepositoryAsync<>));
         //services.AddTransient<IProductRepositoryAsync, ProductRepositoryAsync>();
     }

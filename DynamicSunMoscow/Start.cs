@@ -13,7 +13,7 @@ public class Start
     {
         //services.AddApplicationLayer();
         //services.AddIdentityInfrastructure(_config);
-        //services.AddBaseInfrastructure(_config);
+        services.AddBaseInfrastructure(_config);
         //services.AddSharedInfrastructure(_config);
         //services.AddSwaggerExtension();
         //services.AddApiVersioningExtension();

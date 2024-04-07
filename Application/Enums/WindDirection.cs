@@ -1,7 +1,7 @@
 ﻿
 namespace Application.Enums;
 
-public enum WindDirection
+public enum WindDirectionOld
 {
     NoWind,
     North,
