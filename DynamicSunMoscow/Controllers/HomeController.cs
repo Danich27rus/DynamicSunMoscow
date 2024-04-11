@@ -21,6 +21,8 @@ namespace DynamicSunMoscow.Controllers
             _logger = logger;
             _appEnvironment = appEnvironment;
             _weatherRepository = weatherRepository;
+
+            Directory.CreateDirectory(_appEnvironment.WebRootPath + "/excelFiles/");
         }
 
         public IActionResult Index()
