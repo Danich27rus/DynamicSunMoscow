@@ -19,9 +19,10 @@ namespace DynamicSunMoscow.Migrations
                     Humidity = table.Column<int>(type: "int", nullable: false),
                     DewPoint = table.Column<float>(type: "real", nullable: false),
                     Pressure = table.Column<int>(type: "int", nullable: false),
-                    WindSpeed = table.Column<int>(type: "int", nullable: false),
+                    WindDirections = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    WindSpeed = table.Column<int>(type: "int", nullable: true),
                     Cloudiness = table.Column<int>(type: "int", nullable: true),
-                    CloudBase = table.Column<int>(type: "int", nullable: false),
+                    CloudBase = table.Column<int>(type: "int", nullable: true),
                     HorizontalVisibility = table.Column<int>(type: "int", nullable: true),
                     HumidityString = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -31,37 +32,26 @@ namespace DynamicSunMoscow.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "WindDirections",
+                name: "WindDirection",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Direction = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    WeatherId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    Direction = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_WindDirectionId", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_WindDirections_Weathers_WeatherId",
-                        column: x => x.WeatherId,
-                        principalTable: "Weathers",
-                        principalColumn: "Id");
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_WindDirections_WeatherId",
-                table: "WindDirections",
-                column: "WeatherId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "WindDirections");
+                name: "Weathers");
 
             migrationBuilder.DropTable(
-                name: "Weathers");
+                name: "WindDirection");
         }
     }
 }

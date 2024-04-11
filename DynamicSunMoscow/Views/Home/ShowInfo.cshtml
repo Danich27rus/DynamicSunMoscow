@@ -1,8 +1,72 @@
-﻿@{
-    ViewData["Title"] = "Прсмотр информации из архивов";
+﻿@model DynamicSunMoscow.Models.WeatherViewModel
+@{
+    ViewBag.Title = "Прсмотр информации из архивов";
 }
 
+<h1 class="display-4 text-center">Погодная таблица</h1>
+<form method="get">
+    <div>
+        <label>Год: </label>
+        <select name="year" asp-items="Model.Years" class="form-control"></select>
+
+        <label>Месяц: </label>
+        <select name="month" asp-items="Model.Months" class="form-control"></select>
+
+        <input type="submit" value="Фильтр" class="btn btn-outline-dark" />
+    </div>
+</form>
 <div class="text-center">
-    <h1 class="display-4">Да</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core"></a>ДА!</p>
+    <table class="table">
+        <tr>
+            <th>Дата/Время</th>
+            <th>Температура воздуха</th>
+            <th>Влажность воздуха</th>
+            <th>Точка росы</th>
+            <th>Давление</th>
+            <th>Направление ветра</th>
+            <th>Скорость ветра</th>
+            <th>Облачность</th>
+            <th>Нижняя граница облачности</th>
+            <th>Горизонтальная видимость</th>
+            <th>Погодные явления</th>
+        </tr>
+        @foreach (var weather in Model.Weathers)
+        {
+            <tr>
+                <td>@weather.DateTime</td>
+                <td>@weather.Temprature</td>
+                <td>@weather.Humidity</td>
+                <td>@weather.DewPoint</td>
+                <td>@weather.Pressure</td>
+                <td>@weather.WindDirections</td>
+                <td>@((weather.WindSpeed.HasValue) ? weather.WindSpeed : "")</td>
+                <td>@((weather.Cloudiness.HasValue) ? weather.Cloudiness : "")</td>
+                <td>@((weather.CloudBase.HasValue) ? weather.CloudBase : "")</td>
+                <td>@((weather.HorizontalVisibility.HasValue) ? weather.HorizontalVisibility : "")</td>
+                <td>@weather.HumidityString</td>
+            </tr>
+        }
+    </table>
 </div>
+@if (Model.PageModel.HasPreviousPage)
+{
+    <a asp-action="ShowInfo"
+       asp-route-page="@(Model.PageModel.PageNumber - 1)"
+       asp-route-year="@(Model.SelectedYear)"
+       asp-route-month="@(Model.SelectedMonth)"
+       class="btn btn-outline-dark">
+        <i class="glyphicon glyphicon-chevron-left"></i>
+        Назад
+    </a>
+}
+@if (Model.PageModel.HasNextPage)
+{
+    <a asp-action="ShowInfo"
+       asp-route-page="@(Model.PageModel.PageNumber + 1)"
+       asp-route-year="@(Model.SelectedYear)"
+       asp-route-month="@(Model.SelectedMonth)"
+       class="btn btn-outline-dark">
+        Вперед
+        <i class="glyphicon glyphicon-chevron-right"></i>
+    </a>
+}

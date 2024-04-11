@@ -2,6 +2,9 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Infrastructure.Base.Context;
+using Application.Interfaces;
+using Infrastructure.Base.Repository;
+using Base.Repository;
 
 namespace Infrastructure.Base;
 
@@ -13,7 +16,7 @@ public static class DBRegistration
            options.UseSqlServer(
                configuration.GetConnectionString("DefaultConnection"),
                b => b.MigrationsAssembly("DynamicSunMoscow")));
-        //services.AddTransient(typeof(IGenericRepositoryAsync<>), typeof(GenericRepositoryAsync<>));
-        //services.AddTransient<IProductRepositoryAsync, ProductRepositoryAsync>();
+        services.AddTransient(typeof(IGenericRepositoryAsync<>), typeof(GenericRepositoryAsync<>));
+        services.AddTransient<IWeatherDataRepositoryAsync, WeatherDataRepositoryAsync>();
     }
 }

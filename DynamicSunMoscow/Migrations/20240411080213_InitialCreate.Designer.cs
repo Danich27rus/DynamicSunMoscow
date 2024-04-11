@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DynamicSunMoscow.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240407144837_InitialCreate")]
+    [Migration("20240411080213_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -30,7 +30,7 @@ namespace DynamicSunMoscow.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("CloudBase")
+                    b.Property<int?>("CloudBase")
                         .HasColumnType("int");
 
                     b.Property<int?>("Cloudiness")
@@ -57,7 +57,10 @@ namespace DynamicSunMoscow.Migrations
                     b.Property<float>("Temprature")
                         .HasColumnType("real");
 
-                    b.Property<int>("WindSpeed")
+                    b.Property<string>("WindDirections")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("WindSpeed")
                         .HasColumnType("int");
 
                     b.HasKey("Id")
@@ -78,27 +81,10 @@ namespace DynamicSunMoscow.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("WeatherId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id")
                         .HasName("PK_WindDirectionId");
 
-                    b.HasIndex("WeatherId");
-
-                    b.ToTable("WindDirections");
-                });
-
-            modelBuilder.Entity("Domain.Entities.WindDirection", b =>
-                {
-                    b.HasOne("Domain.Entities.Weather", null)
-                        .WithMany("WindDirections")
-                        .HasForeignKey("WeatherId");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Weather", b =>
-                {
-                    b.Navigation("WindDirections");
+                    b.ToTable("WindDirection");
                 });
 #pragma warning restore 612, 618
         }
